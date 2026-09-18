@@ -174,7 +174,6 @@ window.PORTFOLIO_I18N = {
     "contact.location": "所在地",
 
     /* ---------- Footer ---------- */
-    "footer.rights": "保留所有权利。",
-    "footer.built": "纯手工设计与构建 —— 无框架，无追踪。"
+    "footer.rights": "保留所有权利。"
   }
 };

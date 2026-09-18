@@ -993,8 +993,6 @@ img, svg { display: block; max-width: 100%; }
   font-size: var(--fs-xs);
 }
 
-.footer-note { color: var(--text-faint); }
-
 /* Back to top */
 .to-top {
   position: fixed;
@@ -1095,7 +1093,6 @@ img, svg { display: block; max-width: 100%; }
   .skill-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .three-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .contact-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .footer-inner { flex-direction: row; justify-content: space-between; text-align: start; }
 }
 
 @media (min-width: 992px) {
