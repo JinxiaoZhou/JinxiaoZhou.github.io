@@ -43,7 +43,7 @@ window.PORTFOLIO_I18N = {
     "hero.summary":
       "具备扎实后端功底的软件工程师，熟悉 Java 与低延迟 RPC；目前延伸至数据分析、离散事件仿真与应用机器学习。我偏爱可度量、有测试、真正能上线的系统。",
     "hero.cta.projects": "查看项目",
-    "hero.cta.resume": "下载简历",
+    "hero.cta.resume": "下载中文简历",
     "hero.cta.email": "联系我",
     "hero.stat1.k": "实习经历",
     "hero.stat2.k": "工程项目",

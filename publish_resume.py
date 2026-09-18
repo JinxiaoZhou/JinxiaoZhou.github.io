@@ -1,14 +1,17 @@
 # ---------------------------------------------------------------------------
-# Publish the résumé to the portfolio site and push it live.
+# Publish a résumé to the portfolio site and push it live.
 #
-#   Usage:  python publish_resume.py "E:\Career\Resume\Resume Jinxiao 2026.docx"
-#           python publish_resume.py --pdf-only "C:\some\already.pdf"
-#           python publish_resume.py --no-push "E:\...\Resume.docx"   (local only)
+#   English:  python publish_resume.py en "E:\Career\Resume\_public\Resume Jinxiao 2026 (public).docx"
+#   Chinese:  python publish_resume.py zh "E:\Career\校招\材料\周津霄-多伦多大学-MIE (public).docx"
 #
-# What it does
-#   1. Converts the .docx to PDF using Word or WPS COM automation (Windows).
-#   2. Copies it to assets/Jinxiao-Zhou-Resume.pdf  (the path index.html wants)
-#   3. Commits and pushes to GitHub Pages.
+#   Already a PDF:   add --pdf-only
+#   Local only:      add --no-push
+#   Legacy (no lang): the first arg may be the file path; assumes English.
+#
+# The language argument decides which file the site writes, matching the
+# download button in index.html for each language:
+#   en -> assets/resume/Jinxiao-Zhou-Resume-EN.pdf
+#   zh -> assets/resume/Jinxiao-Zhou-Resume-ZH.pdf
 #
 # Word/WPS is required for .docx -> .pdf. If neither is installed, export the
 # PDF manually and re-run with --pdf-only.
@@ -22,8 +25,15 @@ import sys
 import tempfile
 
 SITE_DIR = os.path.dirname(os.path.abspath(__file__))
-TARGET_NAME = "Jinxiao-Zhou-Resume.pdf"
-TARGET_PATH = os.path.join(SITE_DIR, "assets", TARGET_NAME)
+
+#: language -> (target file name, human label)
+TARGETS = {
+    "en": ("Jinxiao-Zhou-Resume-EN.pdf", "English"),
+    "zh": ("Jinxiao-Zhou-Resume-ZH.pdf", "中文"),
+}
+
+#: Kept for backwards compatibility with the single-résumé layout.
+LEGACY_TARGET = "Jinxiao-Zhou-Resume.pdf"
 
 WD_FORMAT_PDF = 17
 
@@ -90,26 +100,42 @@ def git(*args, check=True):
 
 
 def main():
-    ap = argparse.ArgumentParser(description="把简历发布到 portfolio 站点")
-    ap.add_argument("source", help="源文件：.docx 或已是 .pdf")
+    ap = argparse.ArgumentParser(
+        description="把简历发布到 portfolio 站点",
+        usage='%(prog)s {en|zh} "<简历文件>" [--pdf-only] [--no-push]',
+    )
+    ap.add_argument("lang", nargs="?", choices=sorted(TARGETS),
+                    help="语言：en = 英文简历按钮，zh = 中文简历按钮")
+    ap.add_argument("source", nargs="?", help="源文件：.docx 或已是 .pdf")
     ap.add_argument("--pdf-only", action="store_true",
                     help="源文件已经是 PDF，跳过转换")
     ap.add_argument("--no-push", action="store_true",
                     help="只更新本地文件，不提交不推送")
     args = ap.parse_args()
 
+    # Backwards compatibility: a single path argument means English.
+    if args.source is None:
+        if args.lang is None:
+            ap.error("请指定语言和目标文件，例如：publish_resume.py en \"resume.docx\"")
+        args.lang, args.source = "en", args.lang
+
+    target_name, label = TARGETS[args.lang]
+    target_path = os.path.join(SITE_DIR, "assets", "resume", target_name)
+
     src = os.path.abspath(args.source)
     if not os.path.exists(src):
         sys.exit(f"✗ 找不到源文件：{src}")
 
-    os.makedirs(os.path.dirname(TARGET_PATH), exist_ok=True)
+    os.makedirs(os.path.dirname(target_path), exist_ok=True)
+
+    print(f"· 目标：{label}简历 -> assets/resume/{target_name}")
 
     # --- 1. produce a PDF -------------------------------------------------
     if args.pdf_only or src.lower().endswith(".pdf"):
         pdf = src
         print(f"✓ 使用已有 PDF：{os.path.basename(pdf)}")
     elif src.lower().endswith((".docx", ".doc")):
-        tmp_pdf = os.path.join(tempfile.gettempdir(), TARGET_NAME)
+        tmp_pdf = os.path.join(tempfile.gettempdir(), target_name)
         if os.path.exists(tmp_pdf):
             os.remove(tmp_pdf)
         print(f"→ 正在转换：{os.path.basename(src)}")
@@ -118,7 +144,7 @@ def main():
             sys.exit(
                 f"✗ 转换失败：{msg}\n"
                 f"  请用 Word/WPS 手动「另存为 PDF」，然后执行：\n"
-                f"  python publish_resume.py --pdf-only \"<你的.pdf>\""
+                f'  python publish_resume.py {args.lang} --pdf-only "<你的.pdf>"'
             )
         pdf = tmp_pdf
         print("✓ 转换完成")
@@ -126,27 +152,33 @@ def main():
         sys.exit("✗ 只支持 .docx / .doc / .pdf")
 
     # --- 2. place it where index.html expects it --------------------------
-    shutil.copyfile(pdf, TARGET_PATH)
-    size_kb = os.path.getsize(TARGET_PATH) / 1024
-    print(f"✓ 已放置：assets/{TARGET_NAME}  ({size_kb:.0f} KB)")
+    shutil.copyfile(pdf, target_path)
+    size_kb = os.path.getsize(target_path) / 1024
+    print(f"✓ 已放置：assets/resume/{target_name}  ({size_kb:.0f} KB)")
 
     if size_kb < 20:
         print("⚠ 文件偏小，请确认导出的是完整简历")
     if size_kb > 5120:
         print("⚠ 超过 5 MB，建议压缩后再上传（网页加载会很慢）")
 
+    # Retire the old single-résumé file once both language slots exist.
+    legacy = os.path.join(SITE_DIR, "assets", LEGACY_TARGET)
+    if os.path.exists(legacy):
+        os.remove(legacy)
+        print(f"· 已移除旧文件 assets/{LEGACY_TARGET}")
+
     # --- 3. commit & push -------------------------------------------------
     if args.no_push:
         print("· 已跳过 git 操作（--no-push）")
-        print(f"\n完成。本地预览：http://localhost:8000/")
+        print("\n完成。本地预览：http://localhost:8000/")
         return
 
-    git("add", f"assets/{TARGET_NAME}")
-    status = git("status", "--porcelain", f"assets/{TARGET_NAME}").stdout.strip()
+    git("add", "-A")
+    status = git("status", "--porcelain").stdout.strip()
     if not status:
         print("· 文件内容无变化，无需提交")
     else:
-        git("commit", "-m", "Add résumé PDF and enable download button")
+        git("commit", "-m", f"Update {label} résumé PDF (assets/resume/{target_name})")
         print("✓ 已提交")
 
     push = git("push", check=False)

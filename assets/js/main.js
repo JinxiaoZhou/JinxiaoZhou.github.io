@@ -44,6 +44,26 @@
     ogDesc: metaOgDesc ? metaOgDesc.getAttribute("content") : ""
   };
 
+  /* ---------------------------------------------------------------------
+     Language-dependent file links (one résumé per language)
+     Any element carrying data-href-en / data-href-zh gets its href swapped
+     when the language changes, so the download also serves the right file.
+     --------------------------------------------------------------------- */
+  var linkNodes = [];
+  Array.prototype.forEach.call(doc.querySelectorAll("[data-href-en][data-href-zh]"), function (el) {
+    linkNodes.push({
+      el: el,
+      en: el.getAttribute("data-href-en"),
+      zh: el.getAttribute("data-href-zh")
+    });
+  });
+
+  function applyLanguageLinks(lang) {
+    linkNodes.forEach(function (item) {
+      item.el.setAttribute("href", lang === "zh" ? item.zh : item.en);
+    });
+  }
+
   function lookup(key, lang) {
     if (lang === "en") return null;
     var table = I18N[lang];
@@ -85,6 +105,8 @@
 
     root.setAttribute("lang", lang === "zh" ? "zh-CN" : "en");
     root.setAttribute("data-lang", lang);
+
+    applyLanguageLinks(lang);
 
     langButtons.forEach(function (btn) {
       btn.setAttribute("aria-pressed", String(btn.getAttribute("data-lang") === lang));
@@ -259,20 +281,38 @@
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 
   /* ---------------------------------------------------------------------
-     Graceful résumé link: hide the button when the PDF has not been added
-     yet (only checked over http/https, since file:// blocks fetch).
+     Graceful résumé link: hide the button when the PDF for the active
+     language has not been uploaded yet. Only meaningful over http/https,
+     since file:// blocks the request.
      --------------------------------------------------------------------- */
   (function () {
     var link = doc.querySelector(".hero-actions a[download]");
     if (!link || !/^https?:$/.test(window.location.protocol) || !window.fetch) return;
 
-    fetch(link.getAttribute("href"), { method: "HEAD" })
-      .then(function (res) {
-        if (!res.ok) link.hidden = true;
-      })
-      .catch(function () {
-        link.hidden = true;
-      });
+    var checked = {};
+
+    function verify() {
+      var href = link.getAttribute("href");
+      if (!href || typeof checked[href] === "boolean") {
+        if (typeof checked[href] === "boolean") link.hidden = checked[href];
+        return;
+      }
+      link.hidden = true;
+      fetch(href, { method: "HEAD" })
+        .then(function (res) {
+          checked[href] = !res.ok;
+          if (link.getAttribute("href") === href) link.hidden = checked[href];
+        })
+        .catch(function () {
+          checked[href] = true;
+          if (link.getAttribute("href") === href) link.hidden = true;
+        });
+    }
+
+    // Re-check whenever the language switch changes the target file.
+    var observer = new MutationObserver(verify);
+    observer.observe(link, { attributes: true, attributeFilter: ["href"] });
+    verify();
   })();
 
   /* ---------------------------------------------------------------------
