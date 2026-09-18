@@ -52,6 +52,13 @@
   /* Layout */
   --container: 1120px;
   --header-h: 64px;
+
+  /* CJK text is set from the tag, so a wrapped line never ends up as a
+     single orphaned glyph ("孤字"). `strict` is the CSS equivalent of
+     typesetters' 避头尾 rules: it also forbids a line from *starting*
+     with a closing bracket or trailing punctuation. Unsupported engines
+     simply ignore the declaration and keep the default `normal`. */
+  --line-break-cjk: strict;
 }
 
 /* Dark theme (default) */
@@ -173,7 +180,13 @@ h1, h2, h3, h4 {
   line-height: var(--lh-tight);
   letter-spacing: -0.02em;
   font-weight: 680;
+  line-break: var(--line-break-cjk);
+  word-break: keep-all;
 }
+
+/* Headings and titles read better balanced than justified; this only affects
+   how the browser distributes words across lines, never the text itself. */
+h1, h2, h3 { text-wrap: balance; }
 
 p { margin: 0; }
 
@@ -303,7 +316,18 @@ img, svg { display: block; max-width: 100%; }
 
 .brand-text { display: none; line-height: 1.2; }
 .brand-text strong { display: block; font-size: var(--fs-sm); }
-.brand-text small { color: var(--text-muted); font-size: var(--fs-xs); font-weight: 500; }
+.brand-text small {
+  display: block;
+  color: var(--text-muted);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+}
+
+/* The brand lockup is the one thing that must never be squeezed: the mark and
+   both lines of text stay put at every width. Everything to its right gives
+   way first. */
+.brand { flex-shrink: 0; }
+.brand-text { white-space: nowrap; }
 
 .nav {
   position: fixed;
@@ -337,6 +361,10 @@ img, svg { display: block; max-width: 100%; }
 .nav-list a:hover { color: var(--accent); padding-inline-start: var(--sp-2); }
 
 .nav-list a.is-active { color: var(--accent); }
+
+/* Chinese labels are all four glyphs wide, so a single link can wrap and
+   strand one character on a second line. Keep labels intact. */
+:root[data-lang="zh"] .nav-list a { white-space: nowrap; }
 
 .header-actions {
   display: flex;
@@ -1075,6 +1103,124 @@ img, svg { display: block; max-width: 100%; }
   .three-col { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .contact-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .hero { padding-block: var(--sp-10) var(--sp-9); }
+}
+
+/* -------------------------------------------------------------------------
+   Header compression ladder
+   -------------------------------------------------------------------------
+   The brand lockup (JZ mark + name + tagline) is fixed: it keeps its size and
+   both of its lines at every width. When the header runs short of room, the
+   nav and actions to its right give way first, in this order:
+
+     1. tighten the gaps around the nav and the outer container
+     2. shrink nav label padding, then the language switch
+     3. drop the nav labels' inner padding further
+     4. if it still does not fit, fold the nav behind the hamburger
+
+   Each step is keyed to the viewport, so English (narrower glyphs) stops
+   compressing earlier than Chinese.
+   ------------------------------------------------------------------------- */
+
+/* Chinese runs wider than English, so it starts tightening a step sooner. */
+@media (min-width: 768px) and (max-width: 1099px) {
+  :root[data-lang="zh"] .header-inner { gap: var(--sp-3); }
+  :root[data-lang="zh"] .nav-list { gap: 0; }
+  :root[data-lang="zh"] .nav-list a { padding: 8px 8px; }
+  :root[data-lang="zh"] .nav-list a:hover,
+  :root[data-lang="zh"] .nav-list a.is-active { padding-inline-start: 8px; }
+  :root[data-lang="zh"] .seg-btn { padding: 5px 8px; }
+  :root[data-lang="zh"] .header-actions { gap: 6px; }
+}
+
+@media (min-width: 860px) and (max-width: 1099px) {
+  .header-inner { gap: var(--sp-3); }
+  .nav-list { gap: 0; }
+  .nav-list a { padding: 8px 9px; }
+  .nav-list a:hover,
+  .nav-list a.is-active { padding-inline-start: 9px; }
+  .seg-btn { padding: 5px 9px; }
+  .header-actions { gap: 6px; }
+}
+
+/* Last resort before folding: squeeze the right side as far as it goes. */
+@media (min-width: 768px) and (max-width: 859px) {
+  :root[data-lang="zh"] .header-inner { gap: var(--sp-2); }
+  :root[data-lang="zh"] .nav-list a { padding: 8px 6px; }
+  :root[data-lang="zh"] .nav-list a:hover,
+  :root[data-lang="zh"] .nav-list a.is-active { padding-inline-start: 6px; }
+  :root[data-lang="zh"] .seg-btn { padding: 5px 7px; }
+  :root[data-lang="zh"] .header-actions { gap: 4px; }
+  :root[data-lang="zh"] .icon-btn { width: 34px; height: 34px; }
+}
+
+/* Chinese still cannot fit below this: hand the nav to the hamburger. */
+@media (min-width: 768px) and (max-width: 899px) {
+  :root[data-lang="zh"] .nav-toggle { display: grid; }
+  :root[data-lang="zh"] .nav {
+    position: fixed;
+    inset: var(--header-h) 0 auto 0;
+    display: none;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+  }
+  :root[data-lang="zh"] .nav.is-open { display: block; }
+  :root[data-lang="zh"] .nav-list {
+    flex-direction: column;
+    gap: 0;
+    padding: var(--sp-2) var(--sp-5) var(--sp-4);
+  }
+  :root[data-lang="zh"] .nav-list a {
+    display: block;
+    padding: var(--sp-3) 0;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    font-size: var(--fs-base);
+    font-weight: 550;
+    color: var(--text);
+  }
+  :root[data-lang="zh"] .nav-list li:last-child a { border-bottom: 0; }
+  :root[data-lang="zh"] .nav-list a:hover,
+  :root[data-lang="zh"] .nav-list a.is-active {
+    background: transparent;
+    padding-inline-start: var(--sp-2);
+  }
+}
+
+/* English needs the same fallback, just later: at 800px the six labels plus
+   the language switch still overrun the brand lockup by ~38px, so the
+   hamburger takes over until there is room for the inline nav. */
+@media (min-width: 768px) and (max-width: 859px) {
+  .nav-toggle { display: grid; }
+  .nav {
+    position: fixed;
+    inset: var(--header-h) 0 auto 0;
+    display: none;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+  }
+  .nav.is-open { display: block; }
+  .nav-list {
+    flex-direction: column;
+    gap: 0;
+    padding: var(--sp-2) var(--sp-5) var(--sp-4);
+  }
+  .nav-list a {
+    display: block;
+    padding: var(--sp-3) 0;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    font-size: var(--fs-base);
+    font-weight: 550;
+    color: var(--text);
+  }
+  .nav-list li:last-child a { border-bottom: 0; }
+  .nav-list a:hover,
+  .nav-list a.is-active {
+    background: transparent;
+    padding-inline-start: var(--sp-2);
+  }
 }
 
 @media (min-width: 1200px) {
