@@ -150,6 +150,24 @@ def main():
         print("✓ 已提交")
 
     push = git("push", check=False)
+
+    # Another commit may have landed meanwhile (e.g. an edit made in the
+    # GitHub web UI). Rebase onto it and retry once before giving up.
+    if push.returncode != 0 and "rejected" in (push.stderr or ""):
+        print("· 远程有新提交，正在同步后重试…")
+        env_rebase = {"GIT_SEQUENCE_EDITOR": "true", "GIT_EDITOR": "true"}
+        old_env = os.environ.copy()
+        os.environ.update(env_rebase)
+        try:
+            git("fetch", "origin", "main", check=False)
+            if git("rebase", "origin/main", check=False).returncode == 0:
+                push = git("push", check=False)
+            else:
+                git("rebase", "--abort", check=False)
+        finally:
+            os.environ.clear()
+            os.environ.update(old_env)
+
     if push.returncode == 0:
         print("✓ 已推送到 GitHub")
         print("\n约 1 分钟后生效：https://jinxiaozhou.github.io")
@@ -157,6 +175,7 @@ def main():
     else:
         print("✗ 推送失败：")
         print("  " + (push.stderr or push.stdout).strip().replace("\n", "\n  "))
+        print("\n  手动处理：git pull --rebase origin main  然后  git push")
 
 
 if __name__ == "__main__":
