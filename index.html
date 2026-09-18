@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jinxiao (Johnny) Zhou — Software &amp; Data Engineer</title>
+<meta name="description" content="Portfolio of Jinxiao (Johnny) Zhou — Master of Engineering candidate at the University of Toronto, working across software engineering, data analytics and applied machine learning." />
+<meta name="author" content="Jinxiao Zhou" />
+<meta name="theme-color" content="#0b0f14" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Jinxiao (Johnny) Zhou — Software &amp; Data Engineer" />
+<meta property="og:description" content="Software engineering &amp; data analytics portfolio. MEng @ University of Toronto." />
+<meta property="og:locale" content="en_CA" />
+<meta property="og:locale:alternate" content="zh_CN" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b0f14'/%3E%3Ctext x='32' y='43' font-family='system-ui,sans-serif' font-size='30' font-weight='700' fill='%234f8cff' text-anchor='middle'%3EJZ%3C/text%3E%3C/svg%3E" />
+<link rel="stylesheet" href="assets/css/style.css" />
+
+<!-- Theme bootstrap: resolves stored / system preference before first paint -->
+<script>
+(function () {
+  try {
+    var t = localStorage.getItem('portfolio-theme');
+    if (t !== 'light' && t !== 'dark') {
+      t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+})();
+</script>
+</head>
+
+<body>
+<a class="skip-link" href="#main" data-i18n="a11y.skip">Skip to main content</a>
+
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="#hero" aria-label="Jinxiao Zhou — home">
+      <span class="brand-mark" aria-hidden="true">JZ</span>
+      <span class="brand-text">
+        <strong>Jinxiao Zhou</strong>
+        <small data-i18n="brand.sub">Software &amp; Data</small>
+      </span>
+    </a>
+
+    <nav class="nav" id="primary-nav" aria-label="Primary">
+      <ul class="nav-list">
+        <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#education" data-i18n="nav.education">Education</a></li>
+        <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+        <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+        <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+        <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <div class="segmented" role="group" aria-label="Language / 语言">
+        <button type="button" class="seg-btn" id="lang-en" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" class="seg-btn" id="lang-zh" data-lang="zh" aria-pressed="false">中文</button>
+      </div>
+
+      <button type="button" class="icon-btn" id="theme-toggle" aria-label="Toggle color theme" data-i18n-aria="a11y.theme">
+        <svg class="ico ico-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></svg>
+        <svg class="ico ico-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 14.5A8.2 8.2 0 0 1 9.5 4a8.3 8.3 0 1 0 10.5 10.5Z"/></svg>
+      </button>
+
+      <button type="button" class="icon-btn nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="primary-nav" data-i18n-aria="a11y.menu">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="badge" data-i18n="hero.badge">Toronto, Canada · Open to 2027 new-grad roles</p>
+
+      <h1 class="hero-name" data-i18n-html="hero.name">Jinxiao&nbsp;Zhou <span class="hero-nick">(Johnny)</span></h1>
+
+      <p class="hero-role" data-i18n="hero.role">
+        Master of Engineering candidate at the University of Toronto — emphasis in Data Analytics &amp; Machine Learning.
+      </p>
+
+      <p class="hero-summary" data-i18n="hero.summary">
+        Software engineer with a backend foundation in Java and low-latency RPC, now building on data analytics, simulation and applied machine learning. I like systems that are measured, tested and actually shipped.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#projects">
+          <span data-i18n="hero.cta.projects">View projects</span>
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="assets/Jinxiao-Zhou-Resume.pdf" download>
+          <span data-i18n="hero.cta.resume">Download résumé</span>
+          <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19h14"/></svg>
+        </a>
+        <a class="btn btn-quiet" href="mailto:johnnyzhoujinxiao@gmail.com">
+          <span data-i18n="hero.cta.email">Get in touch</span>
+        </a>
+      </div>
+
+      <dl class="hero-stats">
+        <div class="stat">
+          <dt data-i18n="hero.stat1.k">Internships</dt>
+          <dd>2</dd>
+        </div>
+        <div class="stat">
+          <dt data-i18n="hero.stat2.k">Engineering projects</dt>
+          <dd>3</dd>
+        </div>
+        <div class="stat">
+          <dt data-i18n="hero.stat3.k">Languages</dt>
+          <dd>3</dd>
+        </div>
+        <div class="stat">
+          <dt data-i18n="hero.stat4.k">Expected graduation</dt>
+          <dd>2027</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="section" id="about">
+    <div class="container">
+      <header class="section-head reveal">
+        <span class="kicker">01</span>
+        <div>
+          <h2 data-i18n="about.title">About</h2>
+          <p class="section-sub" data-i18n="about.sub">Software engineering, data and the space between them.</p>
+        </div>
+      </header>
+
+      <div class="about-grid">
+        <div class="about-copy reveal">
+          <p data-i18n="about.p1">
+            I'm Johnny — a Master of Engineering student at the University of Toronto, in Mechanical &amp; Industrial Engineering with an emphasis in Data Analytics &amp; Machine Learning. Before that I completed an Honours Bachelor of Arts in Information Technology at York University.
+          </p>
+          <p data-i18n="about.p2">
+            My work sits between software engineering and data. I've built backend services in Java for a VoIP open platform, wired low-latency RPC links into a C++ core, and delivered Unitree humanoid and quadruped robots on-site — including full-English technical training for partner engineers from Korea. On the data side I build churn models in Python, write discrete-event simulations in Java, and design relational and object-relational schemas in SQL.
+          </p>
+          <p data-i18n="about.p3">
+            I care about clarity: readable code, tested behaviour, and reports or dashboards that a non-technical stakeholder can act on.
+          </p>
+        </div>
+
+        <aside class="panel reveal" aria-label="Quick facts">
+          <h3 class="panel-title" data-i18n="about.facts.title">Quick facts</h3>
+          <ul class="fact-list">
+            <li>
+              <span class="fact-k" data-i18n="about.fact.location">Based in</span>
+              <span class="fact-v">Toronto, ON</span>
+            </li>
+            <li>
+              <span class="fact-k" data-i18n="about.fact.focus">Focus</span>
+              <span class="fact-v" data-i18n="about.fact.focus.v">Data analytics · ML · Backend</span>
+            </li>
+            <li>
+              <span class="fact-k" data-i18n="about.fact.degree">Current degree</span>
+              <span class="fact-v" data-i18n="about.fact.degree.v">MEng, University of Toronto</span>
+            </li>
+            <li>
+              <span class="fact-k" data-i18n="about.fact.status">Status</span>
+              <span class="fact-v" data-i18n="about.fact.status.v">Open to internships &amp; new-grad roles</span>
+            </li>
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EDUCATION ============ -->
+  <section class="section section-alt" id="education">
+    <div class="container">
+      <header class="section-head reveal">
+        <span class="kicker">02</span>
+        <div>
+          <h2 data-i18n="edu.title">Education</h2>
+          <p class="section-sub" data-i18n="edu.sub">Two degrees, one direction: from information technology into applied data science.</p>
+        </div>
+      </header>
+
+      <ol class="timeline">
+        <li class="timeline-item reveal">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="card">
+            <header class="card-head">
+              <div>
+                <h3>University of Toronto</h3>
+                <p class="card-org" data-i18n="edu.u1.degree">Master of Engineering, Mechanical &amp; Industrial Engineering</p>
+              </div>
+              <p class="card-when"><time datetime="2025-09">Sep 2025</time> – <time datetime="2027-05">Apr 2027</time></p>
+            </header>
+            <p class="card-note" data-i18n="edu.u1.emphasis">Emphasis in Data Analytics &amp; Machine Learning</p>
+            <ul class="tag-row">
+              <li class="tag" data-i18n="edu.u1.gpa">GPA 3.43 / 4.0</li>
+              <li class="tag">Cloud Data Analytics (A)</li>
+              <li class="tag">Reinforcement Learning (A)</li>
+              <li class="tag" data-i18n="edu.u1.c3">Introduction to Data Science (B+)</li>
+              <li class="tag" data-i18n="edu.u1.c4">AI in Finance (B+)</li>
+            </ul>
+          </article>
+        </li>
+
+        <li class="timeline-item reveal">
+          <div class="timeline-marker" aria-hidden="true"></div>
+          <article class="card">
+            <header class="card-head">
+              <div>
+                <h3>York University</h3>
+                <p class="card-org" data-i18n="edu.u2.degree">Honours Bachelor of Arts, Information Technology</p>
+              </div>
+              <p class="card-when"><time datetime="2021-09">Sep 2021</time> – <time datetime="2025-04">Apr 2025</time></p>
+            </header>
+            <ul class="tag-row">
+              <li class="tag" data-i18n="edu.u2.gpa">Major GPA 7.20 / 9.0</li>
+              <li class="tag" data-i18n="edu.u2.c1">Data Mining</li>
+              <li class="tag" data-i18n="edu.u2.c2">Optimization</li>
+              <li class="tag" data-i18n="edu.u2.c3">Object-Oriented Design &amp; Programming</li>
+              <li class="tag" data-i18n="edu.u2.c4">Database Design</li>
+              <li class="tag" data-i18n="edu.u2.c5">Reactive Web Applications</li>
+              <li class="tag" data-i18n="edu.u2.c6">Distributed Systems Design</li>
+            </ul>
+          </article>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE ============ -->
+  <section class="section" id="experience">
+    <div class="container">
+      <header class="section-head reveal">
+        <span class="kicker">03</span>
+        <div>
+          <h2 data-i18n="exp.title">Experience</h2>
+          <p class="section-sub" data-i18n="exp.sub">Backend services, on-site robot delivery, and technical training across languages.</p>
+        </div>
+      </header>
+
+      <div class="stack">
+        <article class="card card-lg reveal">
+          <header class="card-head">
+            <div>
+              <h3 data-i18n="exp.e1.role">Junior Software Engineer</h3>
+              <p class="card-org" data-i18n="exp.e1.org">Zhejiang Yulan Intelligent Emergency Robot Research Institute Co., Ltd.</p>
+            </div>
+            <p class="card-when"><time datetime="2026-07">Jul 2026</time> – <time datetime="2026-08">Aug 2026</time></p>
+          </header>
+          <ul class="bullet-list">
+            <li data-i18n="exp.e1.b1">Delivered Unitree G1 humanoid and Go2 quadruped robots on-site, completing hardware–software integration of onboard compute backpacks under tight timelines.</li>
+            <li data-i18n="exp.e1.b2">Built Ubuntu development environments with Unitree SDK 2 and CycloneDDS nodes, establishing low-latency end-to-end control pipelines.</li>
+            <li data-i18n="exp.e1.b3">Worked around equipment delays with contingency plans and delivered full-English technical training so Korean engineers could carry out secondary development.</li>
+          </ul>
+          <ul class="tag-row">
+            <li class="tag">Ubuntu</li><li class="tag">Unitree SDK 2</li><li class="tag">CycloneDDS</li><li class="tag">Robotics</li>
+          </ul>
+        </article>
+
+        <article class="card card-lg reveal">
+          <header class="card-head">
+            <div>
+              <h3 data-i18n="exp.e2.role">Java Developer Intern</h3>
+              <p class="card-org" data-i18n="exp.e2.org">Juphoon System Software (Ningbo)</p>
+            </div>
+            <p class="card-when"><time datetime="2024-06">Jun 2024</time> – <time datetime="2024-08">Aug 2024</time></p>
+          </header>
+          <ul class="bullet-list">
+            <li data-i18n="exp.e2.b1">Developed core backend features for a VoIP open platform in Java, processing structured JSON payloads and establishing low-latency RPC connections with the underlying C++ core functions.</li>
+            <li data-i18n="exp.e2.b2">Simulated client-side network requests in Postman to run integration tests, validate API endpoints and debug cross-module workflows.</li>
+            <li data-i18n="exp.e2.b3">Ensured cross-platform compatibility and system stability across the platform ecosystem to support reliable service delivery.</li>
+          </ul>
+          <ul class="tag-row">
+            <li class="tag">Java</li><li class="tag">RPC</li><li class="tag">C++ interop</li><li class="tag">Postman</li><li class="tag">JSON</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section class="section section-alt" id="projects">
+    <div class="container">
+      <header class="section-head reveal">
+        <span class="kicker">04</span>
+        <div>
+          <h2 data-i18n="proj.title">Projects</h2>
+          <p class="section-sub" data-i18n="proj.sub">Coursework and personal builds — modelling, simulation and database design.</p>
+        </div>
+      </header>
+
+      <div class="project-grid">
+        <article class="project reveal">
+          <div class="project-top">
+            <span class="project-badge" data-i18n="proj.p1.kind">Machine learning</span>
+            <time class="project-when" datetime="2024-12">2024</time>
+          </div>
+          <h3 data-i18n="proj.p1.title">Credit Card User Churn Analysis</h3>
+          <p class="project-desc" data-i18n="proj.p1.desc">
+            A churn prediction pipeline built in Jupyter with Python and Scikit-learn — visualised in Seaborn, with feature transformation, missing-value imputation, outlier handling and clustering before modelling.
+          </p>
+          <ul class="bullet-list bullet-sm">
+            <li data-i18n="proj.p1.b1">Tested and fine-tuned KNN, Naive Bayes, Decision Tree, SVC and XGBoost with 5-fold cross-validation.</li>
+            <li data-i18n="proj.p1.b2">Delivered a proposal with model performance analysis and business recommendations.</li>
+          </ul>
+          <ul class="tag-row">
+            <li class="tag">Python</li><li class="tag">Scikit-learn</li><li class="tag">Seaborn</li><li class="tag">Jupyter</li>
+          </ul>
+          <a class="project-link" href="https://github.com/mjmcmanaman/itec4305a1" target="_blank" rel="noopener noreferrer">
+            <span data-i18n="proj.viewRepo">View repository</span>
+            <svg class="ico ico-github" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.88 1.52 2.34 1.08 2.9.82.09-.64.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03a9.5 9.5 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+          </a>
+        </article>
+
+        <article class="project reveal">
+          <div class="project-top">
+            <span class="project-badge" data-i18n="proj.p2.kind">Database design</span>
+            <time class="project-when" datetime="2024-12">2024</time>
+          </div>
+          <h3 data-i18n="proj.p2.title">Real Estate Data Management System</h3>
+          <p class="project-desc" data-i18n="proj.p2.desc">
+            A data system designed on an object-relational SQL schema, from problem scoping and user views through to a working implementation.
+          </p>
+          <ul class="bullet-list bullet-sm">
+            <li data-i18n="proj.p2.b1">Documented the design with class diagrams and translated them into SQL type and type body definitions.</li>
+            <li data-i18n="proj.p2.b2">Integrated polymorphic member functions to handle property subtypes cleanly.</li>
+          </ul>
+          <ul class="tag-row">
+            <li class="tag">Oracle SQL</li><li class="tag">Object-relational</li><li class="tag" data-i18n="proj.p2.tag3">Data modelling</li>
+          </ul>
+          <a class="project-link" href="https://github.com/JinxiaoZhou/ITEC-4220-Group-Project" target="_blank" rel="noopener noreferrer">
+            <span data-i18n="proj.viewRepo">View repository</span>
+            <svg class="ico ico-github" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.88 1.52 2.34 1.08 2.9.82.09-.64.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03a9.5 9.5 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+          </a>
+        </article>
+
+        <article class="project reveal">
+          <div class="project-top">
+            <span class="project-badge" data-i18n="proj.p3.kind">Simulation</span>
+            <time class="project-when" datetime="2025-04">2025</time>
+          </div>
+          <h3 data-i18n="proj.p3.title">Gas Station Discrete-Event Simulation</h3>
+          <p class="project-desc" data-i18n="proj.p3.desc">
+            A discrete-event simulation of a gas station built in Java, with an event-scheduling core, unit-tested behaviour and presentation-ready results.
+          </p>
+          <ul class="bullet-list bullet-sm">
+            <li data-i18n="proj.p3.b1">Resolved bugs in a legacy codebase and wrote unit tests with JUnit.</li>
+            <li data-i18n="proj.p3.b2">Demonstrated the event scheduling flow and simulation outcomes in presentations.</li>
+          </ul>
+          <ul class="tag-row">
+            <li class="tag">Java</li><li class="tag">Maven</li><li class="tag">JUnit</li><li class="tag">Git</li>
+          </ul>
+          <a class="project-link" href="https://github.com/JinxiaoZhou/Simulation" target="_blank" rel="noopener noreferrer">
+            <span data-i18n="proj.viewRepo">View repository</span>
+            <svg class="ico ico-github" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.88 1.52 2.34 1.08 2.9.82.09-.64.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03a9.5 9.5 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS ============ -->
+  <section class="section" id="skills">
+    <div class="container">
+      <header class="section-head reveal">
+        <span class="kicker">05</span>
+        <div>
+          <h2 data-i18n="skills.title">Skills</h2>
+          <p class="section-sub" data-i18n="skills.sub">The tools I reach for, grouped the way I actually use them.</p>
+        </div>
+      </header>
+
+      <div class="skill-grid">
+        <article class="skill-card reveal">
+          <h3 data-i18n="skills.g1">Languages</h3>
+          <ul class="tag-row">
+            <li class="tag">Java <em data-i18n="skills.level.adv">advanced</em></li>
+            <li class="tag">Python <em data-i18n="skills.level.int">intermediate</em></li>
+            <li class="tag">SQL <em data-i18n="skills.level.adv">advanced</em></li>
+            <li class="tag">MATLAB</li>
+            <li class="tag">HTML</li>
+            <li class="tag">CSS</li>
+            <li class="tag">JavaScript</li>
+            <li class="tag">JSON</li>
+            <li class="tag">XML</li>
+          </ul>
+        </article>
+
+        <article class="skill-card reveal">
+          <h3 data-i18n="skills.g2">Frameworks &amp; tools</h3>
+          <ul class="tag-row">
+            <li class="tag">Maven</li>
+            <li class="tag">Node.js</li>
+            <li class="tag">Scikit-learn</li>
+            <li class="tag">JUnit</li>
+            <li class="tag">Git</li>
+            <li class="tag">Linux</li>
+            <li class="tag">VS Code</li>
+            <li class="tag">Jupyter</li>
+            <li class="tag">REST API</li>
+          </ul>
+        </article>
+
+        <article class="skill-card reveal">
+          <h3 data-i18n="skills.g3">Databases</h3>
+          <ul class="tag-row">
+            <li class="tag" data-i18n="skills.g3.t1">Relational design</li>
+            <li class="tag" data-i18n="skills.g3.t2">Object-oriented modelling</li>
+            <li class="tag">MySQL</li>
+            <li class="tag">Oracle SQL</li>
+          </ul>
+        </article>
+
+        <article class="skill-card reveal">
+          <h3 data-i18n="skills.g4">Data &amp; analytics</h3>
+          <ul class="tag-row">
+            <li class="tag" data-i18n="skills.g4.t1">Data visualisation</li>
+            <li class="tag">Hadoop MapReduce</li>
+            <li class="tag">Spark</li>
+            <li class="tag">Azure (Big Data · ML · IoT)</li>
+            <li class="tag" data-i18n="skills.g4.t2">Fine-tuning</li>
+            <li class="tag" data-i18n="skills.g4.t3">Machine learning</li>
+            <li class="tag" data-i18n="skills.g4.t4">Reinforcement learning</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MORE: ACTIVITIES / CERTS / LANGUAGES ============ -->
+  <section class="section section-alt" id="more">
+    <div class="container">
+      <header class="section-head reveal">
+        <span class="kicker">06</span>
+        <div>
+          <h2 data-i18n="more.title">Beyond the code</h2>
+          <p class="section-sub" data-i18n="more.sub">Community, certifications and languages.</p>
+        </div>
+      </header>
+
+      <div class="three-col">
+        <article class="card reveal">
+          <h3 data-i18n="more.act.title">Activities</h3>
+          <div class="mini-item">
+            <p class="mini-title" data-i18n="more.act.a1.title">Event Coordinator — Viewfinder Photography Club</p>
+            <p class="mini-meta" data-i18n="more.act.a1.meta">Events team · Sep 2025 – Aug 2026</p>
+            <ul class="bullet-list bullet-sm">
+              <li data-i18n="more.act.a1.b1">Coordinated club activities and independently designed structured registration forms that streamlined participant data collection.</li>
+              <li data-i18n="more.act.a1.b2">Ran statistical analysis on event data, wrote summary reports and delivered visual presentations to club leadership.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <h3 data-i18n="more.cert.title">Certifications &amp; honours</h3>
+          <ul class="bullet-list bullet-sm">
+            <li data-i18n="more.cert.c1">CSIA Regular — Certified Level 1 Ski Instructor</li>
+            <li data-i18n="more.cert.c2">HSBC Open Day 2022 — Certificate of Recognition</li>
+            <li data-i18n="more.cert.c3">2024 Toronto–York University Terry Fox Run (10 km)</li>
+          </ul>
+        </article>
+
+        <article class="card reveal">
+          <h3 data-i18n="more.lang.title">Languages</h3>
+          <ul class="lang-list">
+            <li>
+              <span class="lang-name" data-i18n="more.lang.l1">English</span>
+              <span class="lang-level" data-i18n="more.lang.l1.v">Fluent · working proficiency</span>
+            </li>
+            <li>
+              <span class="lang-name" data-i18n="more.lang.l2">Mandarin Chinese</span>
+              <span class="lang-level" data-i18n="more.lang.l2.v">Native</span>
+            </li>
+            <li>
+              <span class="lang-name" data-i18n="more.lang.l3">French</span>
+              <span class="lang-level" data-i18n="more.lang.l3.v">Basic · A2</span>
+            </li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="section" id="contact">
+    <div class="container">
+      <header class="section-head reveal">
+        <span class="kicker">07</span>
+        <div>
+          <h2 data-i18n="contact.title">Let's talk</h2>
+          <p class="section-sub" data-i18n="contact.sub">I'm open to internships, new-grad roles and interesting side projects.</p>
+        </div>
+      </header>
+
+      <div class="contact-grid">
+        <a class="contact-card reveal" href="mailto:johnnyzhoujinxiao@gmail.com">
+          <span class="contact-icon" aria-hidden="true">
+            <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.8 7 8.2 6 8.2-6"/></svg>
+          </span>
+          <span class="contact-body">
+            <strong>Email</strong>
+            <span>johnnyzhoujinxiao@gmail.com</span>
+          </span>
+        </a>
+
+        <a class="contact-card reveal" href="https://github.com/JinxiaoZhou" target="_blank" rel="noopener noreferrer">
+          <span class="contact-icon" aria-hidden="true">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.1-1.47-1.1-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.88 1.52 2.34 1.08 2.9.82.09-.64.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.95 0-1.09.39-1.99 1.03-2.69-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.03a9.5 9.5 0 0 1 5 0c1.91-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.4.1 2.65.64.7 1.03 1.6 1.03 2.69 0 3.85-2.34 4.7-4.57 4.95.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+          </span>
+          <span class="contact-body">
+            <strong>GitHub</strong>
+            <span>github.com/JinxiaoZhou</span>
+          </span>
+        </a>
+
+        <a class="contact-card reveal" href="https://www.linkedin.com/in/jinxiao-zhou-johnny/" target="_blank" rel="noopener noreferrer">
+          <span class="contact-icon" aria-hidden="true">
+            <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7.6 10.5v6M7.6 7.6v.02M11.6 16.5v-6M11.6 12.6c0-1.2.9-2.1 2-2.1s2 .9 2 2.1v3.9"/></svg>
+          </span>
+          <span class="contact-body">
+            <strong>LinkedIn</strong>
+            <span>in/jinxiao-zhou-johnny</span>
+          </span>
+        </a>
+
+        <div class="contact-card contact-card-static reveal">
+          <span class="contact-icon" aria-hidden="true">
+            <svg class="ico" viewBox="0 0 24 24"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          </span>
+          <span class="contact-body">
+            <strong data-i18n="contact.location">Location</strong>
+            <span>Toronto, Ontario, Canada</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-copy">
+      © <span id="year">2026</span> Jinxiao Zhou. <span data-i18n="footer.rights">All rights reserved.</span>
+    </p>
+    <p class="footer-note" data-i18n="footer.built">Designed and built by hand — no frameworks, no trackers.</p>
+  </div>
+</footer>
+
+<button type="button" class="to-top" id="to-top" aria-label="Back to top" data-i18n-aria="a11y.top" hidden>
+  <svg class="ico" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V6M6 12l6-6 6 6"/></svg>
+</button>
+
+<script src="assets/js/i18n.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>
