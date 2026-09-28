@@ -139,7 +139,7 @@
   function setTheme(theme, persist) {
     root.setAttribute("data-theme", theme);
     var meta = doc.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", theme === "light" ? "#f6f8fb" : "#0b0f14");
+    if (meta) meta.setAttribute("content", theme === "light" ? "#faf8f4" : "#1a1713");
     if (persist) {
       try { localStorage.setItem(STORAGE_THEME, theme); } catch (e) {}
     }

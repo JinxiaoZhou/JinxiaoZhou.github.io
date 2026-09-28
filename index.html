@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Jinxiao (Johnny) Zhou — Software &amp; Data Engineer</title>
 <meta name="description" content="Portfolio of Jinxiao (Johnny) Zhou — Master of Engineering candidate at the University of Toronto, working across software engineering, data analytics and applied machine learning." />
 <meta name="author" content="Jinxiao Zhou" />
-<meta name="theme-color" content="#0b0f14" />
+<meta name="theme-color" content="#faf8f4" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
@@ -15,7 +15,7 @@
 <meta property="og:locale" content="en_CA" />
 <meta property="og:locale:alternate" content="zh_CN" />
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b0f14'/%3E%3Ctext x='32' y='43' font-family='system-ui,sans-serif' font-size='30' font-weight='700' fill='%234f8cff' text-anchor='middle'%3EJZ%3C/text%3E%3C/svg%3E" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23a34d1a'/%3E%3Ctext x='32' y='43' font-family='system-ui,sans-serif' font-size='30' font-weight='700' fill='%23faf8f4' text-anchor='middle'%3EJZ%3C/text%3E%3C/svg%3E" />
 <link rel="stylesheet" href="assets/css/style.css" />
 
 <!-- Theme bootstrap: resolves stored / system preference before first paint -->
@@ -24,7 +24,7 @@
   try {
     var t = localStorage.getItem('portfolio-theme');
     if (t !== 'light' && t !== 'dark') {
-      t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
     document.documentElement.setAttribute('data-theme', t);
   } catch (e) {}
